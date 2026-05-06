@@ -72,7 +72,7 @@ This tool provides instant insights into overspending, recommends better plans o
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/ai-spend-audit.git
+git clone https://github.com/Sastik/ai-spend-audit.git
 cd ai-spend-audit
 ```
 
@@ -109,7 +109,7 @@ LLM_API_KEY=your_nvidia_key
 
 ## 🌍 Live Demo
 
-👉 https://your-deployed-url.netlify.app
+👉 https://ai-spend-audit.netlify.app/
 
 ---
 
