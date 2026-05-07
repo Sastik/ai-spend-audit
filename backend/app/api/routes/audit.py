@@ -17,7 +17,7 @@ router = APIRouter()
 
 @router.post("/audit", response_model=AuditResponse)
 def audit(req: AuditRequest, db: Session = Depends(get_db)) -> AuditResponse:
-    repo_root = Path(__file__).resolve().parents[4]
+    repo_root = Path(__file__).resolve().parents[3]
     pricing = load_pricing_from_repo_root(repo_root)
     result = run_audit(req, pricing)
 
