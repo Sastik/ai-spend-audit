@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     database_url: str
     nvidia_api_key: str | None = None
     nvidia_model: str | None = None
-    # OpenAI-compatible endpoint (NVIDIA hosted). Docs: https://docs.api.nvidia.com/
     nvidia_chat_completions_url: str = "https://integrate.api.nvidia.com/v1/chat/completions"
 
     # SMTP (lead confirmation) - optional
@@ -31,8 +30,6 @@ class Settings(BaseSettings):
 
     @property
     def sqlalchemy_database_url(self) -> str:
-        # If a user provides `postgresql://...`, SQLAlchemy may default to `psycopg2`.
-        # We standardize on psycopg (v3) which we install via `psycopg[binary]`.
         if self.database_url.startswith("postgresql://"):
             return self.database_url.replace("postgresql://", "postgresql+psycopg://", 1)
         return self.database_url

@@ -16,7 +16,10 @@ def create_app() -> FastAPI:
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.cors_origins,
+        allow_origins=[
+        "http://localhost:5173",
+        "https://ai-spend-audit.netlify.app",
+    ],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -26,8 +29,6 @@ def create_app() -> FastAPI:
 
     @app.on_event("startup")
     def _create_tables() -> None:
-        # Simple baseline for the assignment: create tables if missing.
-        # In most production systems you'd use migrations (e.g., Alembic) instead.
         Base.metadata.create_all(bind=engine)
 
     return app
