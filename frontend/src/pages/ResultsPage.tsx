@@ -7,7 +7,7 @@ import { useLastAudit } from "../lib/store";
 
 export default function ResultsPage() {
   const [lastAudit] = useLastAudit();
-
+ console.log("lastAudit", lastAudit);
   if (!lastAudit) {
     return (
       <div className="space-y-4">

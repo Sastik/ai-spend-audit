@@ -8,7 +8,7 @@ import type { SpendInput } from "../types/spend";
 
 export default function AuditInputPage() {
   const navigate = useNavigate();
-  const [, setLastAudit] = useLastAudit();
+  const [lastAudit, setLastAudit] = useLastAudit();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,19 +18,27 @@ export default function AuditInputPage() {
     try {
       const r = (await runAudit(value)) as AuditResponse;
       setLastAudit(r);
-      navigate("/results");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Audit failed");
     } finally {
       setLoading(false);
+      setTimeout(() => {
+        if (lastAudit) {
+          navigate("/results");
+        }
+      }, 0);
     }
   };
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Audit</h1>
-        <p className="mt-1 text-sm text-slate-600">Enter your AI subscriptions and run a deterministic audit.</p>
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+          Audit
+        </h1>
+        <p className="mt-1 text-sm text-slate-600">
+          Enter your AI subscriptions and run a deterministic audit.
+        </p>
       </div>
 
       <SpendInputForm onSubmit={onSubmit} />
@@ -42,9 +50,10 @@ export default function AuditInputPage() {
       ) : null}
 
       {error ? (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-800">{error}</div>
+        <div className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4 text-sm text-rose-800">
+          {error}
+        </div>
       ) : null}
     </div>
   );
 }
-
